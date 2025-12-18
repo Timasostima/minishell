@@ -6,7 +6,8 @@ RM = rm -f
 LIBFT = libft
 LIBFT_LIB = $(LIBFT)/libft.a
 
-FILES = main \
+FILES = main
+
 SRCS = $(addsuffix .c, $(FILES))
 
 OBJS = $(addprefix ./objs/, $(addsuffix .o, $(FILES)))
