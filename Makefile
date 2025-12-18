@@ -15,7 +15,7 @@ OBJS = $(addprefix ./objs/, $(addsuffix .o, $(FILES)))
 all: $(NAME)
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -lreadline -o $(NAME)
 
 objs/%.o: %.c minishell.h
 	mkdir -p objs
