@@ -16,7 +16,7 @@ all: $(NAME)
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -o $(NAME)
 
-objs/%.o: %.c fract_ol.h
+objs/%.o: %.c minishell.h
 	mkdir -p objs
 	$(CC) $(CFLAGS) -I $(LIBFT) -c $< -o $@
 
