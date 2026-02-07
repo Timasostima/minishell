@@ -14,8 +14,8 @@ OBJS = $(addprefix ./objs/, $(addsuffix .o, $(FILES)))
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -lreadline -o $(NAME)
+$(NAME): $(LIBFT_LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) -lreadline -o $(NAME)
 
 objs/%.o: %.c minishell.h
 	mkdir -p objs
@@ -39,15 +39,13 @@ $(LIBFT_LIB):
 clean:
 	$(RM)r objs/
 	make -C $(LIBFT) clean
-	rm -rf $(MLX)/build
 
 fclean: clean
 	$(RM) $(NAME)
 	make -C $(LIBFT) fclean
 
 erase_all: fclean
-	$(RM)r $(LIBFT)
-	$(RM)r $(MLX)
+	$(RM) -r $(LIBFT)
 
 re: fclean all
 
