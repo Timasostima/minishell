@@ -6,7 +6,7 @@ RM = rm -f
 LIBFT = libft
 LIBFT_LIB = $(LIBFT)/libft.a
 
-FILES = main
+FILES = minishell
 
 SRCS = $(addsuffix .c, $(FILES))
 
@@ -37,7 +37,7 @@ $(LIBFT_LIB):
 	make -C $(LIBFT)
 
 clean:
-	$(RM)r objs/
+	$(RM) -r objs/
 	make -C $(LIBFT) clean
 
 fclean: clean
