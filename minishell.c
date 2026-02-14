@@ -6,7 +6,7 @@
 /*   By: ibenaven <ibenaven@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 16:53:36 by ibenaven          #+#    #+#             */
-/*   Updated: 2026/02/14 17:36:36 by ibenaven         ###   ########.fr       */
+/*   Updated: 2026/02/14 19:27:04 by ibenaven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	main(int argc, char *argv[], char *envp[])
 			split_paths = ft_split(path, ':');
 			cmd_path = build_cmd_path(split_paths, split_argvs[0]);	
 			execve(cmd_path, split_argvs, envp);
-			free_split(split_argvs);
-			free_split(split_paths);
+			ft_free_split(split_argvs);
+			ft_free_split(split_paths);
 			free (input);
 			rl_clear_history();
 			exit(EXIT_FAILURE);

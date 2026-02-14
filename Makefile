@@ -26,7 +26,6 @@ LIBFT = libft
 LIBFT_LIB = $(LIBFT)/libft.a
 
 FILES = minishell \
-		free_split \
 		path
 
 SRCS = $(addsuffix .c, $(FILES))
