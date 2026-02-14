@@ -1,16 +1,35 @@
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS ?= -Wall -Wextra -Werror
 RM = rm -f
+
+SHELL	:= /bin/bash
+
+ifeq ($(DEBUG), 1)
+CFLAGS += -g
+endif
+
+VG		:= valgrind
+VGFLAGS	:= \
+		-s \
+		--tool=memcheck \
+		--leak-check=full \
+		--show-leak-kinds=all \
+		--show-reachable=yes \
+		--track-origins=yes \
+		--trace-children=yes \
+		--track-fds=yes \
+		--suppressions=readline.supp \
+		--log-file=informe
 
 LIBFT = libft
 LIBFT_LIB = $(LIBFT)/libft.a
 
 FILES = minishell \
+		free_split \
 		path
 
 SRCS = $(addsuffix .c, $(FILES))
-
 OBJS = $(addprefix ./objs/, $(addsuffix .o, $(FILES)))
 
 all: $(NAME)
@@ -49,5 +68,9 @@ erase_all: fclean
 	$(RM) -r $(LIBFT)
 
 re: fclean all
+
+leaks:
+	make erase_all && make DEBUG=1
+	$(VG) $(VGFLAGS) ./$(NAME)
 
 .PHONY: all clean fclean re erase_all
