@@ -6,7 +6,7 @@
 /*   By: ibenaven <ibenaven@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 16:53:36 by ibenaven          #+#    #+#             */
-/*   Updated: 2026/02/14 04:16:31 by ibenaven         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:05:15 by ibenaven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*build_cmd_path(char **split_paths, char *cmd)
 		return (path);
 	}
 	i = 0;
-	while (split_paths[i][0] != '\0')
+	while (split_paths[i] != NULL)
 	{
 		dup_path = ft_strdup(split_paths[i]);
 		path_slash = ft_strjoin(dup_path, "/");
