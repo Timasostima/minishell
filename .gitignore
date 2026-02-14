@@ -1,7 +1,9 @@
 libft/
 objs/
 **.o
-.gitignore
+#.gitignore
 AGENTS.md
 minishell
 *.pdf
+informe
+readline.supp
