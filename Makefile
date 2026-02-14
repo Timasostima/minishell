@@ -6,7 +6,8 @@ RM = rm -f
 LIBFT = libft
 LIBFT_LIB = $(LIBFT)/libft.a
 
-FILES = minishell
+FILES = minishell \
+		path
 
 SRCS = $(addsuffix .c, $(FILES))
 
