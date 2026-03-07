@@ -6,71 +6,62 @@
 /*   By: ibenaven <ibenaven@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 16:53:36 by ibenaven          #+#    #+#             */
-/*   Updated: 2026/02/14 19:27:04 by ibenaven         ###   ########.fr       */
+/*   Updated: 2026/03/01 20:17:05 by ibenaven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* Sets one env variable only when it does not already exist in shell env. */
+static int	set_var_if_missing(t_shell *sh, char *key, char *value)
+{
+	if (env_get(sh->env, key) != NULL)
+		return (0);
+	return (env_set(&sh->env, key, value));
+}
+
+/* Creates a minimal shell env when startup env is empty or missing PWD. */
+static int	ensure_minimal_env(t_shell *sh)
+{
+	char	cwd[4096];
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return (1);
+	if (set_var_if_missing(sh, "PWD", cwd) != 0)
+		return (1);
+	return (0);
+}
+
+/* Initializes shell core state and bootstraps editable environment storage. */
+static int	init_shell_state(t_shell *sh, char *envp[])
+{
+	sh->last_status = 0;
+	sh->interactive = isatty(STDIN_FILENO);
+	sh->should_exit = 0;
+	sh->env = env_init(envp);
+	if (envp && envp[0] && sh->env == NULL)
+		return (1);
+	sh->use_default_path = (env_get(sh->env, "PATH") == NULL);
+	if (ensure_minimal_env(sh) != 0)
+		return (env_clear(&sh->env), 1);
+	if (env_inc_shlvl(&sh->env) != 0)
+		return (env_clear(&sh->env), 1);
+	return (0);
+}
+
+/* Initializes shell state and delegates execution to the run loop. */
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*input;
-	const char	*prompt = "minishell$ ";
-	bool	is_running;
-	char	*path;
-	char	*cmd_path;
-	char	**split_paths;
-	char	**split_argvs;
-	pid_t	pid;
-	int	status;
+	t_shell	sh;
 
 	(void)argc;
 	(void)argv;
-	is_running = true;
-	while (is_running)
-	{
-		input = readline(prompt);
-		if (input == NULL)
-		{
-			write(STDOUT_FILENO, "exit\n", 5);
-			break;
-		}
-		if (input[0] == '\0')
-		{
-			free(input);
-			continue;
-		}
-		add_history(input);
-		if (ft_strcmp(input, "exit") == 0)
-			break;
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("fork() error");
-			free (input);
-			rl_clear_history();
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-		{
-			split_argvs = ft_split(input, ' ');
-			path = getenv("PATH");
-			split_paths = ft_split(path, ':');
-			cmd_path = build_cmd_path(split_paths, split_argvs[0]);	
-			execve(cmd_path, split_argvs, envp);
-			ft_free_split(split_argvs);
-			ft_free_split(split_paths);
-			free (input);
-			rl_clear_history();
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			printf("%jd\n", (intmax_t) pid);
-			waitpid(pid, &status, 0);
-			free (input);
-		}	
-	}
+	if (init_shell_state(&sh, envp) != 0)
+		return (ft_putstr_fd("minishell: env init failed\n", STDERR_FILENO), 1);
+	if (sh.interactive)
+		interactive_signals_configuration();
+	sh.last_status = run_shell(&sh);
 	rl_clear_history();
-	return (0);
+	env_clear(&sh.env);
+	return (sh.last_status);
 }

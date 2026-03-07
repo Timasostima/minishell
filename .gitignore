@@ -1,10 +1,10 @@
 libft/
 objs/
 **.o
-#.gitignore
-AGENTS.md
+.gitignore
 minishell
 *.pdf
 informe
-*.supp
+#*.supp
 *.swp
+*.txt
