@@ -84,6 +84,7 @@ make re
 Classical references used for shell behavior and system calls:
 - Bash Reference Manual: https://www.gnu.org/software/bash/manual/
 - POSIX Shell Command Language: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html
+- Bash bugs: https://lists.gnu.org/r/bug-bash/2022-06/msg00088.html
 - Linux man pages: `readline(3)`, `execve(2)`, `fork(2)`, `waitpid(2)`, `dup2(2)`, `pipe(2)`, `signal(7)`
 
 AI usage:
