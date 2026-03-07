@@ -6,22 +6,20 @@
 /*   By: tkulivar <tkulivar@student.42madrid.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 16:53:36 by tkulivar          #+#    #+#             */
-/*   Updated: 2026/03/05 18:20:00 by ibenaven         ###   ########.fr       */
+/*   Updated: 2026/03/07 05:36:48 by ibenaven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <math.h>
+# include <limits.h>
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-# include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <stdbool.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>

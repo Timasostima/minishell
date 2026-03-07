@@ -6,7 +6,7 @@
 /*   By: ibenaven <ibenaven@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 11:47:34 by ibenaven          #+#    #+#             */
-/*   Updated: 2025/04/22 00:50:04 by ibenaven         ###   ########.fr       */
+/*   Updated: 2026/03/07 05:41:07 by ibenaven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 #  define MAX_FD 1024
 # endif
 
+# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 char	*get_next_line(int fd);
 void	gnl_clear(void);
