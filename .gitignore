@@ -7,4 +7,5 @@ minishell
 informe
 #*.supp
 *.swp
+*/*.swp
 *.txt
